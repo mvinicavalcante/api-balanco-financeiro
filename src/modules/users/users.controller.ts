@@ -1,4 +1,4 @@
-import { Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDTO } from './dto/create-user.dto';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
@@ -8,14 +8,14 @@ import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
+  @Post('')
   @ApiOperation({ summary: 'Create a user' })
   @ApiResponse({
     status: 201,
     description: 'User created successfully',
     type: CreateUserDTO,
   })
-  @Post('')
-  async create(user: CreateUserDTO): Promise<CreateUserDTO> {
+  async create(@Body() user: CreateUserDTO): Promise<CreateUserDTO> {
     return this.usersService.create(user);
   }
 
