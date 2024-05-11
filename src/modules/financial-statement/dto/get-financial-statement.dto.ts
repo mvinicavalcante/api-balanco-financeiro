@@ -1,8 +1,8 @@
+import { IsOptional } from '@nestjs/class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsDefined, IsNotEmpty, IsString } from 'class-validator';
-import { PaginationDTO } from 'src/utils/pagination/pagination.dto';
 
-export class getFinancialStatementDTOParam {
+export class getFinancialStatementDTO {
   @ApiProperty({
     description: 'ID of the financial statement',
     required: true,
@@ -14,4 +14,12 @@ export class getFinancialStatementDTOParam {
   userId: string;
 }
 
-export class getFinancialStatementDTOQuery extends PaginationDTO {}
+export class filtersFinancialStatementDTO {
+  @ApiProperty({
+    description: 'Description',
+    required: false,
+    type: String,
+  })
+  @IsOptional()
+  description: string;
+}

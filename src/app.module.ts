@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { MongooseConfigModule } from './config/mongoose';
-import { SchemasModule } from './schemas/schemas.module';
 import { ModulesModule } from './modules/modules.module';
 
 @Module({
@@ -11,7 +10,6 @@ import { ModulesModule } from './modules/modules.module';
       envFilePath: ['.env'],
     }),
     MongooseConfigModule,
-    SchemasModule,
     ModulesModule,
   ],
   controllers: [],

@@ -34,7 +34,7 @@ export class User implements IUser {
     type: String,
     nullable: false,
   })
-  @Prop({ required: true, type: String })
+  @Prop({ required: true, type: String, unique: true })
   email: string;
 
   @ApiProperty({
