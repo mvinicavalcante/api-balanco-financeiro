@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { MongooseConfigModule } from './config/mongoose';
-import { SchemasModule } from './schemas/schemas.module';
 import { ModulesModule } from './modules/modules.module';
 import { AuthModule } from './auth/auth.module';
 
@@ -12,7 +11,6 @@ import { AuthModule } from './auth/auth.module';
       envFilePath: ['.env'],
     }),
     MongooseConfigModule,
-    SchemasModule,
     ModulesModule,
     AuthModule,
   ],
