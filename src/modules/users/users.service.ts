@@ -9,6 +9,7 @@ import { ObjectId } from "mongodb";
 export class UsersService {
   constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {}
 
+  // TODO: verificar se o email já está cadastrado
   async create(user: User): Promise<User> {
     const userPasswordEncrypted = encrypt(user.password);
     const createdUser = new this.userModel({

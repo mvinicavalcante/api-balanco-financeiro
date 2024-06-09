@@ -9,6 +9,7 @@ import { AuthGuard } from '../auth/auth.guard';
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
+  @Post('')
   @ApiOperation({ summary: 'Create a user' })
   @ApiResponse({
     status: 201,
