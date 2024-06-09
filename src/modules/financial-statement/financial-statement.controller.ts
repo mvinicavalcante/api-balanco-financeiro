@@ -3,8 +3,8 @@ import { FinancialStatementService } from './financial-statement.service';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CreateFinancialStatementDTO } from './dto/create-financial-statement.dto';
 import {
-  filtersFinancialStatementDTO,
   getFinancialStatementDTO,
+  getFinancialStatementResponseDTO,
 } from './dto/get-financial-statement.dto';
 import { PaginationDTO } from 'src/utils/paginate-dto/pagination.dto';
 
@@ -35,15 +35,10 @@ export class FinancialStatementController {
   async getFinancialStatementByUserId(
     @Param() params: getFinancialStatementDTO,
     @Query() pagination: PaginationDTO,
-    @Query() filters: filtersFinancialStatementDTO,
-  ) {
-    console.log('params', params);
-    console.log('pagination', pagination);
-    console.log('filters', filters);
+  ): Promise<getFinancialStatementResponseDTO> {
     return await this.financialStatementService.getFinancialStatementByUserId(
       params.userId,
       pagination,
-      filters,
     );
   }
 }

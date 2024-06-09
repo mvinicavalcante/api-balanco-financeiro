@@ -8,7 +8,10 @@ import {
 import { CreateFinancialStatementDTO } from './dto/create-financial-statement.dto';
 import { UsersService } from '../users/users.service';
 import { PaginationDTO } from 'src/utils/paginate-dto/pagination.dto';
-import { filtersFinancialStatementDTO } from './dto/get-financial-statement.dto';
+import {
+  filtersFinancialStatementDTO,
+  getFinancialStatementResponseDTO,
+} from './dto/get-financial-statement.dto';
 
 import utilsPaginate from 'src/utils/paginate/paginate';
 
@@ -35,23 +38,16 @@ export class FinancialStatementService {
     pagination: PaginationDTO,
     filters?: filtersFinancialStatementDTO,
     fields?: ProjectionType<FinancialStatement>,
-  ): Promise<{
-    financialStatements: FinancialStatement[];
-    total: number;
-  }> {
-    const financialStatements = (await this.financialStatement
-      .find(
-        {
-          userId: new Types.ObjectId(userId),
-          ...filters,
-        },
-        fields,
-        { lean: true, ...utilsPaginate(pagination) },
-      )
-      .skip(pagination.page * pagination.limit)
-      .limit(pagination.limit)
-      .sort({ createdAt: -1 })
-      .exec()) as FinancialStatement[];
+  ): Promise<getFinancialStatementResponseDTO> {
+    const { page, limit } = pagination;
+    const financialStatements = (await this.financialStatement.find(
+      {},
+      fields,
+      {
+        lean: true,
+        ...utilsPaginate(pagination),
+      },
+    )) as FinancialStatement[];
 
     return {
       financialStatements: financialStatements,
@@ -59,6 +55,8 @@ export class FinancialStatementService {
         userId: new Types.ObjectId(userId),
         ...filters,
       }),
+      page,
+      limit,
     };
   }
 }

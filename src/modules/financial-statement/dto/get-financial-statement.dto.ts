@@ -1,6 +1,8 @@
 import { IsOptional } from '@nestjs/class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsDefined, IsNotEmpty, IsString } from 'class-validator';
+import { FinancialStatement } from 'src/schemas/financial-statement/financial-statement.schema';
+import { PaginationResponseDTO } from 'src/utils/paginate-dto/pagination.dto';
 
 export class getFinancialStatementDTO {
   @ApiProperty({
@@ -21,5 +23,10 @@ export class filtersFinancialStatementDTO {
     type: String,
   })
   @IsOptional()
-  description: string;
+  @IsString()
+  description?: string;
+}
+
+export class getFinancialStatementResponseDTO extends PaginationResponseDTO {
+  financialStatements: FinancialStatement[];
 }

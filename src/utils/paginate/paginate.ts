@@ -7,7 +7,7 @@ export default ({
 }): { limit: number; skip: number } => {
   if (limit === 0) limit = 50;
   return {
-    limit: limit,
-    skip: page * limit,
+    limit: Number(limit),
+    skip: Number(page * limit),
   };
 };
