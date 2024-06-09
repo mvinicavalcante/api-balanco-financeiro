@@ -2,7 +2,6 @@ import {
   ICategories,
   ITypes,
 } from 'src/schemas/financial-statement/financial-statement.interface';
-import { Types } from 'mongoose';
 import { ApiProperty } from '@nestjs/swagger';
 import {
   IsDate,
@@ -69,5 +68,5 @@ export class CreateFinancialStatementDTO {
   })
   @IsDefined()
   @IsString()
-  userId: Types.ObjectId;
+  userId: string;
 }

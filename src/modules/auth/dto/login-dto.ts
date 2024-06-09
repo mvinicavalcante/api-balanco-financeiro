@@ -1,11 +1,11 @@
-import { ApiProperty } from "@nestjs/swagger";
-import { IsDefined, IsEmail, IsNotEmpty } from "class-validator";
+import { ApiProperty } from '@nestjs/swagger';
+import { IsDefined, IsEmail, IsNotEmpty } from 'class-validator';
 
 export class LoginDto {
   @ApiProperty({
     description: 'Email of the user',
     required: true,
-    type: String
+    type: String,
   })
   @IsDefined()
   @IsNotEmpty()
@@ -19,6 +19,5 @@ export class LoginDto {
   })
   @IsDefined()
   @IsNotEmpty()
-  password: string
+  password: string;
 }
-
