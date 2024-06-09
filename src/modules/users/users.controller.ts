@@ -1,7 +1,8 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDTO } from './dto/create-user.dto';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { AuthGuard } from '../auth/auth.guard';
 
 @Controller('users')
 @ApiTags('users')
@@ -15,6 +16,7 @@ export class UsersController {
     description: 'User created successfully',
     type: CreateUserDTO,
   })
+  @Post('')
   async create(@Body() user: CreateUserDTO): Promise<CreateUserDTO> {
     return this.usersService.create(user);
   }
@@ -25,6 +27,7 @@ export class UsersController {
     description: 'Users found',
   })
   @Get('')
+  @UseGuards(AuthGuard)
   // ! TODO -> Adicionar guard para apenas admin conseguir acessar
   async findAll(): Promise<any> {
     return this.usersService.findAll();

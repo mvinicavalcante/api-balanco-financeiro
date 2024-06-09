@@ -24,11 +24,11 @@ export class FinancialStatementService {
   ) {}
 
   async create(data: CreateFinancialStatementDTO): Promise<FinancialStatement> {
-    const userExists = await this.usersService.findOne(
-      new Types.ObjectId(data.userId),
-    );
+    // const userExists = await this.usersService.findOne(
+    // new Types.ObjectId(data.userId),
+    // );
 
-    if (!userExists) throw new NotFoundException('User not found');
+    // if (!userExists) throw new NotFoundException('User not found');
 
     return await this.financialStatement.create(data);
   }

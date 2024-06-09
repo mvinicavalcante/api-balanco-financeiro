@@ -1,14 +1,15 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { encrypt } from 'src/utils/encryption/encryption';
+import { encrypt } from 'src/config/jwt';
 import { User, UserDocument } from 'src/schemas/user/user.schema';
-import { Types } from 'mongoose';
+import { ObjectId } from "mongodb";
 
 @Injectable()
 export class UsersService {
   constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {}
 
+  // TODO: verificar se o email já está cadastrado
   async create(user: User): Promise<User> {
     const userPasswordEncrypted = encrypt(user.password);
     const createdUser = new this.userModel({
@@ -22,8 +23,9 @@ export class UsersService {
     return this.userModel.find().exec();
   }
 
-  async findOne(id: Types.ObjectId): Promise<User> {
-    return this.userModel.findById(id);
+  async findOne(key: string): Promise<User> {
+    const query = ObjectId.isValid(key) ? { _id: key } : { email: key };
+    return this.userModel.findOne(query);
   }
 
   async update(id: string, user: Partial<User>): Promise<User> {
