@@ -1,0 +1,19 @@
+{
+  "moduleFileExtensions": [
+    "js",
+    "json",
+    "ts"
+  ],
+  "rootDir": "src",
+  "testRegex": ".*\\.unit.test\\.ts$",
+  "transform": {
+    "^.+\\.(t|j)s$": "ts-jest"
+  },
+  "testEnvironment": "jest-environment-node",
+  "moduleNameMapper": {
+    "^@config/(.*)$": "<rootDir>/config/$1",
+    "^@modules/(.*)$": "<rootDir>/modules/$1",
+    "^@schemas/user/(.*)$": "<rootDir>/schemas/user/$1",
+    "^@schemas/financial-stattement/(.*)$": "<rootDir>/schemas/financial-stattement/$1"
+  }
+}

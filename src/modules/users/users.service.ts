@@ -1,21 +1,28 @@
-import { Injectable } from '@nestjs/common';
+import { ConflictException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
-import { encrypt } from 'src/config/jwt';
-import { User, UserDocument } from 'src/schemas/user/user.schema';
+import { encrypt } from '../../config/jwt';
+import { User, UserDocument } from '../../schemas/user/user.schema';
 import { ObjectId } from 'mongodb';
 
 @Injectable()
 export class UsersService {
   constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {}
 
-  // TODO: verificar se o email já está cadastrado
   async create(user: User): Promise<User> {
-    const userPasswordEncrypted = encrypt(user.password);
+    const userAlreadyExists = await this.userModel.findOne({
+      email: user.email,
+    });
+
+    if (userAlreadyExists) {
+      throw new ConflictException('User already exists');
+    }
+
     const createdUser = new this.userModel({
       ...user,
-      password: userPasswordEncrypted,
+      password: encrypt(user.password),
     });
+
     return createdUser.save();
   }
 
