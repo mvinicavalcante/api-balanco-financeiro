@@ -11,7 +11,7 @@ import { JwtService } from '@nestjs/jwt';
 import { Request, Response } from 'express';
 
 @Injectable()
-export class AuthGuard implements CanActivate {
+export class isAuthenticated implements CanActivate {
   constructor(
     @Inject(CACHE_MANAGER) private readonly cache: Cache,
     private readonly jwtService: JwtService,
@@ -49,6 +49,7 @@ export class AuthGuard implements CanActivate {
     dataInCache: any,
   ): Promise<string> {
     const { refreshToken, ...payload } = dataInCache;
+    console.log(dataInCache);
     this.jwtService.verify(refreshToken, { secret: process.env.JWT_SECRET });
 
     const newAccessToken = this.jwtService.sign(payload, {
