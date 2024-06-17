@@ -49,7 +49,6 @@ export class IsAuthenticated implements CanActivate {
     dataInCache: any,
   ): Promise<string> {
     const { refreshToken, ...payload } = dataInCache;
-    console.log(dataInCache);
     this.jwtService.verify(refreshToken, { secret: process.env.JWT_SECRET });
 
     const newAccessToken = this.jwtService.sign(payload, {
