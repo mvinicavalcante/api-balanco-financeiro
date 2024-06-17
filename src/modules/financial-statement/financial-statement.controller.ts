@@ -15,7 +15,7 @@ import {
   getFinancialStatementResponseDTO,
 } from './dto/get-financial-statement.dto';
 import { PaginationDTO } from 'src/utils/paginate-dto/pagination.dto';
-import { isAuthenticated } from 'src/guards/isAuthenticated.guard';
+import { IsAuthenticated } from 'src/guards/IsAuthenticated.guard';
 
 @Controller('financial-statement')
 @ApiTags('financial-statement')
@@ -31,7 +31,7 @@ export class FinancialStatementController {
     description: 'Financial Statement successfully',
     type: CreateFinancialStatementDTO,
   })
-  @UseGuards(isAuthenticated)
+  @UseGuards(IsAuthenticated)
   async create(@Body() data: CreateFinancialStatementDTO) {
     return await this.financialStatementService.create(data);
   }
@@ -42,7 +42,7 @@ export class FinancialStatementController {
     status: 200,
     description: 'Financial Statement found',
   })
-  @UseGuards(isAuthenticated)
+  @UseGuards(IsAuthenticated)
   async getFinancialStatementByUserId(
     @Param() params: getFinancialStatementDTO,
     @Query() pagination: PaginationDTO,

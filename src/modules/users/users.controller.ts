@@ -8,7 +8,7 @@ import {
   ApiTags,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
-import { isAuthenticated } from '../../guards/isAuthenticated.guard';
+import { IsAuthenticated } from '../../guards/IsAuthenticated.guard';
 import { AuthorizeAdminAccountGuard } from 'src/guards/isAdmin.guard';
 
 @Controller('users')
@@ -17,7 +17,7 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Post('')
-  @UseGuards(isAuthenticated, AuthorizeAdminAccountGuard)
+  @UseGuards(IsAuthenticated, AuthorizeAdminAccountGuard)
   @ApiOperation({ summary: 'Create a user' })
   @ApiResponse({
     status: 201,
@@ -37,7 +37,7 @@ export class UsersController {
   }
 
   @Get('')
-  @UseGuards(isAuthenticated, AuthorizeAdminAccountGuard)
+  @UseGuards(IsAuthenticated, AuthorizeAdminAccountGuard)
   @ApiOperation({ summary: 'Get all users' })
   @ApiResponse({
     status: 200,
