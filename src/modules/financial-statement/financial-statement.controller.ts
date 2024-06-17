@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Query,
+  UseGuards,
+} from '@nestjs/common';
 import { FinancialStatementService } from './financial-statement.service';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CreateFinancialStatementDTO } from './dto/create-financial-statement.dto';
@@ -7,6 +15,7 @@ import {
   getFinancialStatementResponseDTO,
 } from './dto/get-financial-statement.dto';
 import { PaginationDTO } from 'src/utils/paginate-dto/pagination.dto';
+import { IsAuthenticated } from 'src/guards/IsAuthenticated.guard';
 
 @Controller('financial-statement')
 @ApiTags('financial-statement')
@@ -22,6 +31,7 @@ export class FinancialStatementController {
     description: 'Financial Statement successfully',
     type: CreateFinancialStatementDTO,
   })
+  @UseGuards(IsAuthenticated)
   async create(@Body() data: CreateFinancialStatementDTO) {
     return await this.financialStatementService.create(data);
   }
@@ -32,6 +42,7 @@ export class FinancialStatementController {
     status: 200,
     description: 'Financial Statement found',
   })
+  @UseGuards(IsAuthenticated)
   async getFinancialStatementByUserId(
     @Param() params: getFinancialStatementDTO,
     @Query() pagination: PaginationDTO,

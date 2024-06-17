@@ -31,7 +31,7 @@ export class AuthService {
     const payload = {
       sub: user.email,
       name: user.name,
-      role: user.isAdmin ? 'admin' : 'userDefault',
+      role: user.isAdmin ? 1 : 0,
     };
     const refreshToken = this.jwtService.sign(payload, {
       expiresIn: '1d',

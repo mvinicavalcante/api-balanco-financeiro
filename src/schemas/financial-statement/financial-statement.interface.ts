@@ -1,14 +1,10 @@
 import { Types } from 'mongoose';
 
 export enum ICategories {
-  FOOD = 'food',
-  TRANSPORT = 'transport',
-  SHOPPING = 'shopping',
-  HEALTH = 'health',
-  ENTERTAINMENT = 'entertainment',
-  SALARY = 'salary',
-  BONUS = 'bonus',
-  OTHERS = 'others',
+  STATIONERY_SHOP = 'stationery_shop',
+  BANK_BUSINESS = 'bank_business',
+  INTERNAL_SPENDING = 'internal_spending',
+  OTHER = 'other',
 }
 
 export enum ITypes {
