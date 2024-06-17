@@ -1,7 +1,7 @@
 import { Types } from 'mongoose';
 
 export enum ICategories {
-  STATIONEY_SHOP = 'stationery_shop',
+  STATIONERY_SHOP = 'stationery_shop',
   BANK_BUSINESS = 'bank_business',
   INTERNAL_SPENDING = 'internal_spending',
   OTHER = 'other',
