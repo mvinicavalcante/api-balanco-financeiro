@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { Model, Types } from 'mongoose';
 import { encrypt } from 'src/config/jwt';
 import { User, UserDocument } from 'src/schemas/user/user.schema';
-import { ObjectId } from "mongodb";
+import { ObjectId } from 'mongodb';
 
 @Injectable()
 export class UsersService {
@@ -23,7 +23,7 @@ export class UsersService {
     return this.userModel.find().exec();
   }
 
-  async findOne(key: string): Promise<User> {
+  async findOne(key: string | Types.ObjectId): Promise<User> {
     const query = ObjectId.isValid(key) ? { _id: key } : { email: key };
     return this.userModel.findOne(query);
   }

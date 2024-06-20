@@ -8,4 +8,4 @@ export const encrypt = (password: string) => {
 export const compare = (password: string, passwordDb: string) => {
   const isValidPassord = bcrypt.compareSync(password, passwordDb);
   return isValidPassord;
-}
+};

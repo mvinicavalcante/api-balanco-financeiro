@@ -13,8 +13,8 @@ import { CacheModule } from '@nestjs/cache-manager';
     MongooseConfigModule,
     ModulesModule,
     CacheModule.register({
-      isGlobal: true
-    })
+      isGlobal: true,
+    }),
   ],
   controllers: [],
   providers: [],
