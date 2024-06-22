@@ -10,6 +10,10 @@ async function bootstrap() {
 
   createDocumentSwagger(app);
 
+  app.enableCors({
+    allowedHeaders: '*',
+  });
+
   app.setGlobalPrefix('api');
 
   await app.listen(3000);
