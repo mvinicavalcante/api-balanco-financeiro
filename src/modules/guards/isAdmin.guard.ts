@@ -1,13 +1,13 @@
-import { CanActivate, ExecutionContext } from '@nestjs/common';
+import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 
+@Injectable()
 export class AuthorizeAdminAccountGuard implements CanActivate {
+  constructor(private readonly jwtService: JwtService) {}
   canActivate(context: ExecutionContext) {
     const { headers } = context.switchToHttp().getRequest();
 
-    const jwtService = new JwtService();
-
-    const token = jwtService.decode(headers['x-access-token']);
+    const token = this.jwtService.decode(headers['x-access-token']);
 
     return token.role === 1;
   }
