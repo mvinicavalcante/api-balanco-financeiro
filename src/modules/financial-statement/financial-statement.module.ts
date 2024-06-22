@@ -7,6 +7,7 @@ import {
   FinancialStatementSchema,
 } from 'src/schemas/financial-statement/financial-statement.schema';
 import { UsersModule } from '../users/users.module';
+import { GuardsModule } from '../guards/guards.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { UsersModule } from '../users/users.module';
       { name: FinancialStatement.name, schema: FinancialStatementSchema },
     ]),
     UsersModule,
+    GuardsModule,
   ],
   controllers: [FinancialStatementController],
   providers: [FinancialStatementService],
