@@ -11,7 +11,7 @@ async function bootstrap() {
   createDocumentSwagger(app);
 
   app.enableCors({
-    allowedHeaders: '*',
+    origin: '*',
   });
 
   app.setGlobalPrefix('api');
