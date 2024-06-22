@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { ConflictException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
 import { encrypt } from 'src/config/jwt';
@@ -14,7 +14,7 @@ export class UsersService {
       email: user.email,
     });
     if (userAlreadyExists) {
-      throw new Error('User already exists');
+      throw new ConflictException('User already exists');
     }
     const userPasswordEncrypted = encrypt(user.password);
     const createdUser = new this.userModel({
