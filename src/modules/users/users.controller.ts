@@ -8,7 +8,7 @@ import {
   ApiTags,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
-import { IsAuthenticated } from '../../guards/IsAuthenticated.guard';
+import { IsAuthenticated } from 'src/guards/IsAuthenticated.guard';
 import { AuthorizeAdminAccountGuard } from 'src/guards/isAdmin.guard';
 
 @Controller('users')
