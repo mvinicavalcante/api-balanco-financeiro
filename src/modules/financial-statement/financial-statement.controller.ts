@@ -15,7 +15,7 @@ import {
   getFinancialStatementResponseDTO,
 } from './dto/get-financial-statement.dto';
 import { PaginationDTO } from '../../utils/paginate-dto/pagination.dto';
-import { IsAuthenticated } from '../guards/isAuthenticated.guard';
+import { IsAuthenticated } from '../../guards/isAuthenticated.guard';
 
 @Controller('financial-statement')
 @ApiTags('financial-statement')
