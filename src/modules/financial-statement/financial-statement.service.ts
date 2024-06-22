@@ -4,16 +4,16 @@ import { Model, ProjectionType, Types } from 'mongoose';
 import {
   FinancialStatement,
   FinancialStatementDocument,
-} from 'src/schemas/financial-statement/financial-statement.schema';
+} from '../../schemas/financial-statement/financial-statement.schema';
 import { CreateFinancialStatementDTO } from './dto/create-financial-statement.dto';
 import { UsersService } from '../users/users.service';
-import { PaginationDTO } from 'src/utils/paginate-dto/pagination.dto';
+import { PaginationDTO } from '../../utils/paginate-dto/pagination.dto';
 import {
   filtersFinancialStatementDTO,
   getFinancialStatementResponseDTO,
 } from './dto/get-financial-statement.dto';
 
-import utilsPaginate from 'src/utils/paginate/paginate';
+import utilsPaginate from '../../utils/paginate/paginate';
 
 @Injectable()
 export class FinancialStatementService {

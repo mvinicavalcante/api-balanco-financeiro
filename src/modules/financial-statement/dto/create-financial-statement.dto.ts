@@ -1,7 +1,7 @@
 import {
   ICategories,
   ITypes,
-} from 'src/schemas/financial-statement/financial-statement.interface';
+} from '../../../schemas/financial-statement/financial-statement.interface';
 import { ApiProperty } from '@nestjs/swagger';
 import {
   IsDate,

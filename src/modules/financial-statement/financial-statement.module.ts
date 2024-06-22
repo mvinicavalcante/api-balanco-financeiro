@@ -5,7 +5,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import {
   FinancialStatement,
   FinancialStatementSchema,
-} from 'src/schemas/financial-statement/financial-statement.schema';
+} from '../../schemas/financial-statement/financial-statement.schema';
 import { UsersModule } from '../users/users.module';
 import { GuardsModule } from '../guards/guards.module';
 
