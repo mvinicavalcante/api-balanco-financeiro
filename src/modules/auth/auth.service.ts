@@ -29,9 +29,10 @@ export class AuthService {
       throw new UnauthorizedException('Email or password is invalid');
 
     const payload = {
-      sub: user.email,
+      id: user._id,
+      email: user.email,
       name: user.name,
-      role: user.isAdmin ? 1 : 0,
+      isAdmin: user.isAdmin ? 1 : 0,
     };
     const refreshToken = this.jwtService.sign(payload, {
       expiresIn: '1d',
@@ -43,7 +44,6 @@ export class AuthService {
     });
     this.cache.set(accessToken, { ...payload, refreshToken }, 84600000);
 
-    // refresh token is saved in cache
     return {
       accessToken,
     };
