@@ -9,6 +9,6 @@ export class AuthorizeAdminAccountGuard implements CanActivate {
 
     const token = this.jwtService.decode(headers['x-access-token']);
 
-    return token.role === 1;
+    return token.isAdmin === 1;
   }
 }
