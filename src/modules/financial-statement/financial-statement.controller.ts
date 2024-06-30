@@ -11,8 +11,11 @@ import { FinancialStatementService } from './financial-statement.service';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CreateFinancialStatementDTO } from './dto/create-financial-statement.dto';
 import {
+  filtersFinancialStatementDTO,
+  filtersStatementFinancialStatementDTO,
   getFinancialStatementDTO,
   getFinancialStatementResponseDTO,
+  getStatementFinancialStatementResponseDTO,
 } from './dto/get-financial-statement.dto';
 import { PaginationDTO } from '../../utils/paginate-dto/pagination.dto';
 import { IsAuthenticated } from '../../guards/isAuthenticated.guard';
@@ -46,10 +49,28 @@ export class FinancialStatementController {
   async getFinancialStatementByUserId(
     @Param() params: getFinancialStatementDTO,
     @Query() pagination: PaginationDTO,
+    @Query() filters?: filtersFinancialStatementDTO,
   ): Promise<getFinancialStatementResponseDTO> {
     return await this.financialStatementService.getFinancialStatementByUserId(
       params.userId,
       pagination,
+      filters,
+    );
+  }
+
+  @Get(':userId/statement')
+  @ApiOperation({ summary: 'Get financial statement by user id' })
+  @ApiResponse({
+    status: 200,
+    description: 'Financial Statement found',
+  })
+  async getStatementFinancialStatementByUserId(
+    @Param() params: getFinancialStatementDTO,
+    @Query() filters?: filtersStatementFinancialStatementDTO,
+  ): Promise<getStatementFinancialStatementResponseDTO> {
+    return await this.financialStatementService.getStatementFinancialStatementByUserId(
+      params.userId,
+      filters,
     );
   }
 }

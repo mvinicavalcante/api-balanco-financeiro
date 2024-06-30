@@ -11,9 +11,12 @@ import { PaginationDTO } from '../../utils/paginate-dto/pagination.dto';
 import {
   filtersFinancialStatementDTO,
   getFinancialStatementResponseDTO,
+  getStatementFinancialStatementResponseDTO,
 } from './dto/get-financial-statement.dto';
 
 import utilsPaginate from '../../utils/paginate/paginate';
+import { FlowTypes } from 'src/schemas/financial-statement/financial-statement.interface';
+import { createDateFilter } from 'src/utils/filterDate';
 
 @Injectable()
 export class FinancialStatementService {
@@ -41,7 +44,7 @@ export class FinancialStatementService {
   ): Promise<getFinancialStatementResponseDTO> {
     const { page, limit } = pagination;
     const financialStatements = (await this.financialStatement.find(
-      {},
+      { userId },
       fields,
       {
         lean: true,
@@ -52,11 +55,59 @@ export class FinancialStatementService {
     return {
       financialStatements: financialStatements,
       total: await this.financialStatement.countDocuments({
-        userId: new Types.ObjectId(userId),
+        userId: userId,
         ...filters,
       }),
       page,
       limit,
+    };
+  }
+
+  async getStatementFinancialStatementByUserId(
+    userId: string,
+    filters?: { minDate?: Date; maxDate?: Date },
+  ): Promise<getStatementFinancialStatementResponseDTO> {
+    const dateFilter = createDateFilter(filters);
+
+    const [inflowDocuments, outflowDocuments, statementsCount] =
+      await Promise.all([
+        this.financialStatement
+          .find({
+            userId,
+            type: FlowTypes.CASH_INFLOW,
+            ...dateFilter,
+          })
+          .select('amount -_id')
+          .lean(),
+        this.financialStatement
+          .find({
+            userId,
+            type: FlowTypes.CASH_OUTFLOW,
+            ...dateFilter,
+          })
+          .select('amount -_id')
+          .lean(),
+        this.financialStatement.countDocuments({
+          userId,
+          ...dateFilter,
+        }),
+      ]);
+
+    const totalInflow = inflowDocuments.reduce(
+      (sum, doc) => sum + doc.amount,
+      0,
+    );
+    const totalOutflow = outflowDocuments.reduce(
+      (sum, doc) => sum + doc.amount,
+      0,
+    );
+
+    return {
+      balance: totalInflow - totalOutflow,
+      health: totalInflow > totalOutflow ? 1 : 0,
+      inflow: totalInflow,
+      outflow: totalOutflow,
+      statements: statementsCount,
     };
   }
 }

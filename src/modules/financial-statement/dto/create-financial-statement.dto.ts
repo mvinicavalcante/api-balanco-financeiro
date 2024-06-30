@@ -1,6 +1,6 @@
 import {
-  ICategories,
-  ITypes,
+  Categories,
+  FlowTypes,
 } from '../../../schemas/financial-statement/financial-statement.interface';
 import { ApiProperty } from '@nestjs/swagger';
 import {
@@ -45,21 +45,21 @@ export class CreateFinancialStatementDTO {
     description: 'Type',
     type: String,
     nullable: false,
-    enum: ITypes,
+    enum: FlowTypes,
   })
   @IsDefined()
-  @IsEnum(ITypes)
-  type: ITypes;
+  @IsEnum(FlowTypes)
+  type: FlowTypes;
 
   @ApiProperty({
     description: 'Category',
     type: String,
     nullable: false,
-    enum: ICategories,
+    enum: Categories,
   })
   @IsDefined()
-  @IsEnum(ICategories)
-  category: ICategories;
+  @IsEnum(Categories)
+  category: Categories;
 
   @ApiProperty({
     description: 'User Id',

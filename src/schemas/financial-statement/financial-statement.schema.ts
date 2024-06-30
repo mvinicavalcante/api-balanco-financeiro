@@ -1,8 +1,8 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import {
-  ICategories,
+  Categories,
   IFinancialStatement,
-  ITypes,
+  FlowTypes,
 } from './financial-statement.interface';
 import { HydratedDocument } from 'mongoose';
 import { Types } from 'mongoose';
@@ -54,16 +54,16 @@ export class FinancialStatement implements IFinancialStatement {
     type: String,
     nullable: false,
   })
-  @Prop({ required: true, type: String, enum: ITypes })
-  type: ITypes;
+  @Prop({ required: true, type: String, enum: FlowTypes })
+  type: FlowTypes;
 
   @ApiProperty({
     description: 'Category',
     type: String,
     nullable: false,
   })
-  @Prop({ required: true, type: String, enum: ICategories })
-  category: ICategories;
+  @Prop({ required: true, type: String, enum: Categories })
+  category: Categories;
 
   @ApiProperty({
     description: 'User Id',
